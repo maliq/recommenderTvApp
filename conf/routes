@@ -8,7 +8,6 @@ GET     /                           controllers.Application.index
 #Programs
 GET     /programs                  controllers.Application.programs
 POST    /programs                  controllers.Application.newProgram
-POST    /programs/:id/delete       controllers.Application.deleteProgram(id: Long)
 
 #Schedules
 GET     /schedules                  controllers.ScheduleController.schedules

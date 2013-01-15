@@ -16,7 +16,6 @@
             <td></td>
             <td>Programa</td>
             <td>Descripción</td>
-            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +24,6 @@
                 <td>@program.id</td>
                 <td>@program.name</td>
                 <td>@program.description</td>
-                <td>@form(routes.Application.deleteProgram(program.id)) {
-                    <input type="submit" value="Delete">
-                }</td>
             </tr>
             }
     </tbody>
