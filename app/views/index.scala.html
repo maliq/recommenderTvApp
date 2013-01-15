@@ -1,0 +1,47 @@
+@(programs: List[Program], programForm: Form[String])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Program list") {
+    <form class="form-search">
+        <input type="text" class="input-medium search-query">
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    <h1>@programs.size Program(s)</h1>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Programa</td>
+            <td>Descripción</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+            @programs.map { program =>
+            <tr>
+                <td>@program.id</td>
+                <td>@program.name</td>
+                <td>@program.description</td>
+                <td>@form(routes.Application.deleteProgram(program.id)) {
+                    <input type="submit" value="Delete">
+                }</td>
+            </tr>
+            }
+    </tbody>
+    </table>
+
+
+    <h2 class="form-signin-heading">Add a new program</h2>
+
+    @form(routes.Application.newProgram, 'class -> "form-horizontal") {
+
+        @inputText(programForm("label"),'placeholder -> "Label")
+
+        <input type="submit" value="Create">
+
+    }
+
+}

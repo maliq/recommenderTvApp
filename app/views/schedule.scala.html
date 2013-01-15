@@ -1,0 +1,29 @@
+@(schedules: List[Schedule])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Lista de Programación") {
+
+    <h1>@schedules.size Programaciones</h1>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Programa</td>
+            <td>Comienzo</td>
+            <td>Duración</td>
+        </tr>
+    </thead>
+    <tbody>
+            @schedules.map { schedule =>
+            <tr>
+                <td>@schedule.id</td>
+                <td>@schedule.start</td>
+                <td>@schedule.duration</td>
+            </tr>
+            }
+    </tbody>
+    </table>
+
+}
