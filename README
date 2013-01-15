@@ -1,4 +1,4 @@
-This is your new Play 2.0 application
+Application that use Play 2.0, Scala, Mongodb and Spring data
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+Application in Play 2.0 (with scala) that connect to mongodb using spring-data.
