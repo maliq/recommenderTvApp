@@ -1,0 +1,27 @@
+@(users: List[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Lista de Usuarios") {
+
+    <h1>@users.size Usuario(s)</h1>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>E-mail</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+            @users.map { user =>
+            <tr>
+                <td>@user.name</td>
+                <td>@user.email</td>
+                <td></td>
+            </tr>
+            }
+    </tbody>
+    </table>
+}

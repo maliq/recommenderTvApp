@@ -1,0 +1,20 @@
+@(registerForm: Form[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+
+@main("Registro de usuario") {
+    <h2 class="form-signin-heading">Registro nuevo Usuario</h2>
+
+    <form method="post" actoin="@routes.UserController.register" class="form-horizontal">
+
+        @inputText(registerForm("name"),'placeholder -> "Nombre", '_label ->"")
+        @inputText(registerForm("email"),'placeholder -> "Email", '_label ->"")
+        @inputPassword(registerForm("password"),'placeholder -> "Clave",'_label ->"")
+        <br/>
+
+        <input type="submit" value="Crear">
+    </form>
+
+}
