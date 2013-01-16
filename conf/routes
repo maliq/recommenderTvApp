@@ -6,8 +6,7 @@
 GET     /                           controllers.Application.index
 
 #Programs
-GET     /programs                  controllers.Application.programs
-POST    /programs                  controllers.Application.newProgram
+GET     /programs                  controllers.ProgramController.programs
 
 #Schedules
 GET     /schedules                  controllers.ScheduleController.schedules

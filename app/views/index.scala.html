@@ -1,27 +1,5 @@
-@(programs: List[Program], programForm: Form[String])
+@main("Home") {
 
-@import helper._
-@import helper.twitterBootstrap._
-
-@main("Lista de Programas") {
-
-    <h1>@programs.size Programas</h1>
-    <table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Programa</td>
-            <td>Episodio</td>
-            <td>Descripción</td>
-        </tr>
-    </thead>
-    <tbody>
-            @programs.map { program =>
-            <tr>
-                <td>@program.name</td>
-                <td>@program.episode</td>
-                <td>@program.description</td>
-            </tr>
-            }
-    </tbody>
-    </table>
+    <h1>Bienvenidos</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis ipsum odio, eu dignissim velit. Pellentesque pellentesque, metus sed pretium accumsan, massa tortor luctus sem, eu volutpat massa nisl ac nunc. Fusce scelerisque molestie dui, a eleifend risus blandit vel. Praesent ut leo non justo condimentum ornare. Maecenas sit amet libero erat. Mauris non neque eget massa facilisis lacinia. Aenean libero leo, blandit vel blandit in, pretium tincidunt mauris. Praesent ut eros mi. Aliquam erat volutpat. Nam non magna id dolor rhoncus luctus. Donec tempor aliquet nunc, sed faucibus eros volutpat ac. Etiam ultricies ultricies elit, eu imperdiet enim bibendum vitae. Quisque feugiat lacinia lacus at sagittis</p>
 }
