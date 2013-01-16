@@ -8,21 +8,44 @@ import org.bson.types.ObjectId
 import java.util.Date
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import org.springframework.core.convert.converter.Converter
+import com.mongodb.DBObject
 
 @Document(collection="schedules")
-case class Schedule(id: ObjectId, chn: String, prog:String, start: Date, duration: Int, minificha: String, ficha: String)
+case class Schedule(id: ObjectId, chn: String, prog: Prog, start: Date, duration: Int, minificha: String, ficha: String)
 
-trait ScheduleRepository extends CrudRepository[Schedule,ObjectId]
+
+case class Prog(id: String, @Field(value="id") idProgram: String,name: String)
+// class Prog(idc: String,namec: String){
+//
+//     var idProgram: String = idc
+//     var name: String = namec
+//     override def toString = {
+//         "Person [id=" + idProgram + ", name=" + name +"]"
+//     }
+// }
+
+// class ProgReadConverter extends Converter[DBObject, Prog] {
+//   override def convert(source: DBObject) :Prog = {
+//     var p: Prog = new Prog("",source.get("id").asInstanceOf[String], source.get("name").asInstanceOf[String])
+//     p
+//   }
+// }
+
+trait ScheduleRepository extends CrudRepository[Schedule,ObjectId]{
+    def findByProg_id( prog: String ): java.util.List[Schedule]
+}
 
 object Schedule {
-
-  def all(): List[Schedule] = {
     val sr = Spring.getBeanOfType(classOf[ScheduleRepository])
-    val schedules:List[Schedule]  = sr.findAll().toList
-    schedules
+    def all(): List[Schedule] = {
+        val schedules:List[Schedule]  = sr.findAll().toList
+        schedules
     }
 
-  def create(label: String) {}
-
-  def delete(id: Long) {}
+    def findByProg(programId: String) = {
+        val schedules:List[Schedule]  = sr.findAll().toList
+        schedules
+    }
 }

@@ -27,4 +27,12 @@
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
     </bean>
 
+<!--     <mongo:mapping-converter>
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="models.ProgReadConverter"/>
+            </mongo:converter>
+        </mongo:custom-converters>
+    </mongo:mapping-converter> -->
+
 </beans>
