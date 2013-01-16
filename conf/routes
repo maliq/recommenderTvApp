@@ -14,6 +14,7 @@ GET     /schedules                  controllers.ScheduleController.schedules
 
 #Users
 GET     /register                   controllers.UserController.register
+GET     /login                   controllers.UserController.login
 GET     /users                      controllers.UserController.users
 POST     /register                  controllers.UserController.create
 

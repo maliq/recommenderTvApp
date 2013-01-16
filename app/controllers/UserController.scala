@@ -16,7 +16,7 @@ object UserController extends Controller {
             "id" -> ignored("1"),
             "name" -> nonEmptyText,
             "email" -> nonEmptyText,
-            "password" -> text
+            "password" -> nonEmptyText
         ) ((id,name,email,password) => User(
                 id = new ObjectId(),
                 name = name,
@@ -30,6 +30,13 @@ object UserController extends Controller {
            ))
         // (User.apply)(User.unapply)
     )
+
+    val loginForm = Form(
+        tuple(
+            "email" -> nonEmptyText,
+            "password" -> nonEmptyText
+            )
+        )
 
     def register = Action{
         Ok(views.html.register(registerForm))
@@ -46,16 +53,15 @@ object UserController extends Controller {
             User.create(newUser)
             Redirect(routes.UserController.users)
         }
-  )
-}
+        )
+    }
 
-    //     val newUser = registerForm.bindFromRequest.get
-    //     Logger("application").debug("User created %s".format(newUser))
-    //     // Logger.info("user with %s".format(newUser))
-    //     Ok(views.html.register(registerForm))
-    // }
 
     def users = Action{
         Ok(views.html.users(User.all()))
+    }
+
+    def login = Action{
+        Ok(views.html.login(loginForm))
     }
 }

@@ -16,7 +16,7 @@ import com.mongodb.DBObject
 case class Schedule(id: ObjectId, chn: String, prog: Prog, start: Date, duration: Int, minificha: String, ficha: String)
 
 
-case class Prog(id: String, @Field(value="id") idProgram: String,name: String)
+case class Prog(id: String, cod: String, name: String)
 // class Prog(idc: String,namec: String){
 //
 //     var idProgram: String = idc
