@@ -4,7 +4,7 @@
 @import helper.twitterBootstrap._
 
 
-@main("Registro de usuario") {
+@main("Ingreso de usuario") {
 <style type="text/css">
       body {
         padding-top: 80px;
@@ -42,16 +42,14 @@
 
 <form class="form-signin" action="@routes.Application.authenticate" >
         @loginForm.globalError.map { error =>
-                <p class="error">
-                    @error.message
-                </p>
-            }
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="alert">
+            <a class="close" data-dismiss="alert">×</a>
+            @error.message
+        </div>
+        }
+        <h2 class="form-signin-heading">Por favor ingrese</h2>
         @inputText(loginForm("email"),'placeholder -> "Email", '_label -> "", 'class -> "input-block-level")
         @inputPassword(loginForm("password"),'placeholder -> "Password", '_label -> "", 'class -> "input-block-level")
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
         <button class="btn btn-large btn-primary" type="submit">Ingresar</button>
       </form>
 }

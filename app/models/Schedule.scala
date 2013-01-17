@@ -13,10 +13,10 @@ import org.springframework.core.convert.converter.Converter
 import com.mongodb.DBObject
 
 @Document(collection="schedules")
-case class Schedule(id: ObjectId, chn: String, prog: Prog, start: Date, duration: Int, minificha: String, ficha: String)
+case class Schedule(id: ObjectId, prog: Shortcut, chn: Shortcut, start: Date, duration: Int, minificha: String, ficha: String)
 
 
-case class Prog(id: String, cod: String, name: String)
+case class Shortcut(id: String, cod: String, name: String)
 // class Prog(idc: String,namec: String){
 //
 //     var idProgram: String = idc

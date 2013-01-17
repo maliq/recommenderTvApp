@@ -37,6 +37,7 @@
             <td>Programa</td>
             <td>Comienzo</td>
             <td>Duración</td>
+            <td>Canal</td>
         </tr>
     </thead>
     <tbody id="schedules">
@@ -45,6 +46,7 @@
                 <td><a href="javascript:$('#modal-from-dom').modal('show')" data-id="@schedule.prog.cod" class="show-program">@schedule.prog.name</a></td>
                 <td>@schedule.start.format("dd MMMM yyyy hh:mm")</td>
                 <td>@schedule.duration minutos</td>
+                <td>@schedule.chn.name</td>
             </tr>
             }
     </tbody>
