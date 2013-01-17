@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /login                   controllers.Application.login
+GET     /authenticate        controllers.Application.authenticate
 
 #Programs
 GET     /programs                  controllers.ProgramController.programs
@@ -13,7 +15,6 @@ GET     /schedules                  controllers.ScheduleController.schedules
 
 #Users
 GET     /register                   controllers.UserController.register
-GET     /login                   controllers.UserController.login
 GET     /users                      controllers.UserController.users
 POST     /register                  controllers.UserController.create
 

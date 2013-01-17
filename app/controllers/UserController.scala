@@ -60,8 +60,4 @@ object UserController extends Controller {
     def users = Action{
         Ok(views.html.users(User.all()))
     }
-
-    def login = Action{
-        Ok(views.html.login(loginForm))
-    }
 }

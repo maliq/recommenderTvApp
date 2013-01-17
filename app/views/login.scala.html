@@ -1,4 +1,4 @@
-@(registerForm: Form[(String,String)])
+@(loginForm: Form[(String,String)])(implicit flash: Flash)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -38,10 +38,17 @@
       }
  </style>
 
-<form class="form-signin">
+
+
+<form class="form-signin" action="@routes.Application.authenticate" >
+        @loginForm.globalError.map { error =>
+                <p class="error">
+                    @error.message
+                </p>
+            }
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
+        @inputText(loginForm("email"),'placeholder -> "Email", '_label -> "", 'class -> "input-block-level")
+        @inputPassword(loginForm("password"),'placeholder -> "Password", '_label -> "", 'class -> "input-block-level")
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
