@@ -1,10 +1,12 @@
 package models
 
+import scala.collection.JavaConversions.iterableAsScalaIterable
+
 import org.bson.types.ObjectId
-import play.modules.spring.Spring
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.CrudRepository
-import scala.collection.JavaConversions._
+
+import play.modules.spring.Spring
 
 @Document(collection="users")
 case class User(id: ObjectId, name: String,email: String, var password: String)

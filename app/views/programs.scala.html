@@ -12,14 +12,16 @@
             <td>Programa</td>
             <td>Episodio</td>
             <td>Descripción</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
             @programs.map { program =>
             <tr>
-                <td>@program.name</td>
+                <td><a href="@routes.ProgramController.setupProgram(program.id)">@program.name</a></td>
                 <td>@program.episode</td>
                 <td>@program.description</td>
+                <td></td>
             </tr>
             }
     </tbody>

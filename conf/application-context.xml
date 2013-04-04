@@ -16,7 +16,7 @@
     <context:annotation-config/>
 
     <mongo:mongo host="localhost" port="27017" />
-    <mongo:db-factory dbname="vtr" />
+    <mongo:db-factory dbname="ml" />
 
     <mongo:repositories base-package="models" />
 

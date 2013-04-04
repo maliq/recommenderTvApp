@@ -3,7 +3,11 @@ project/project
 project/target
 target
 tmp
+bin
 .history
+.target
+.cache
+.settings
 dist
 .DS_Store
 /.idea
@@ -14,3 +18,5 @@ dist
 /.project
 /RUNNING_PID
 
+
+app/Global.scala

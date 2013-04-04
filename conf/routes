@@ -4,11 +4,13 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /login                   controllers.Application.login
-GET     /authenticate        controllers.Application.authenticate
+GET     /login                   	controllers.Application.login
+GET     /authenticate        		controllers.Application.authenticate
 
 #Programs
-GET     /programs                  controllers.ProgramController.programs
+GET     /programs                  	controllers.ProgramController.programs
+GET     /setupProgram/:id           controllers.ProgramController.setupProgram(id:String)
+POST    /editProgram/               controllers.ProgramController.editProgram
 
 #Schedules
 GET     /schedules                  controllers.ScheduleController.schedules

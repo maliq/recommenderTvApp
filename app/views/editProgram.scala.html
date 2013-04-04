@@ -1,0 +1,30 @@
+@(programForm: Form[Program],imdbOptions:Seq[(String,String)])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+
+@main("Editar programa") {
+    <h2 class="form-signin-heading">Editar Programa</h2>
+
+    <form method="post" action="@routes.ProgramController.editProgram" class="form-horizontal">
+        @inputText(programForm("id"),'placeholder -> "Id", '_label ->"", 'style -> "display:none")
+        @inputText(programForm("name"),'placeholder -> "Name", '_label ->"")
+        @inputText(programForm("description"),'placeholder -> "Descripción", '_label ->"")
+        @inputText(programForm("episode"),'placeholder -> "Episodio", '_label ->"")
+        @inputText(programForm("year"),'placeholder -> "Año", '_label ->"")
+        @inputText(programForm("web"),'placeholder -> "Web", '_label ->"")
+        @inputText(programForm("imdbSelected"),'placeholder -> "Imdb Id", '_label ->"")
+        
+        @select(
+                programForm("imdbSelected"), 
+                imdbOptions, 
+                '_label -> "Imdb", '_default -> "-- Choose a company --",
+                '_showConstraints -> false
+            )
+        
+        <br/>
+        <button class="btn btn-large btn-primary" type="submit">Guardar</button>
+    </form>
+
+}
