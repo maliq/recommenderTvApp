@@ -1,17 +1,19 @@
 package controllers
 
+import scala.collection.JavaConversions.asScalaBuffer
+
 import org.springframework.data.mongodb.core.mapping.Document
+
+import models.ImdbResult
 import models.Program
+import models.WikipediaResult
 import play.api.data.Form
+import play.api.data.Forms.list
 import play.api.data.Forms.mapping
 import play.api.data.Forms.nonEmptyText
 import play.api.data.Forms.text
-import play.api.data.Forms.list
-import play.api.mvc.{ Action, Controller }
-import models.ImdbResult
-import scala.collection.JavaConversions._
-import scala.collection.JavaConversions.asList
-import models.ImdbResult
+import play.api.mvc.Action
+import play.api.mvc.Controller
 
 object ProgramController extends Controller {
 
@@ -28,7 +30,11 @@ object ProgramController extends Controller {
         "url" -> text,
         "imdbId" -> text,
         "title" -> text,
-        "postTitle" -> text)(ImdbResult.apply)(ImdbResult.unapply)))(Program.applyCustom)(Program.unapplyCustom))
+        "postTitle" -> text)(ImdbResult.apply)(ImdbResult.unapply)),
+        "wikipediaSelected" -> text, 
+        "wikipediaResults" -> list(mapping(
+            "title"->text)(WikipediaResult.apply)(WikipediaResult.unapply))
+    )(Program.applyCustom)(Program.unapplyCustom))
 
   def index = Action {
     Redirect(routes.ProgramController.programs)
@@ -37,6 +43,8 @@ object ProgramController extends Controller {
   def programs = Action {
     Ok(views.html.programs(Program.all()))
   }
+  
+  
 
   def editProgram() = TODO
 

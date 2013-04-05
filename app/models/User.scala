@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.CrudRepository
 
-import play.modules.spring.Spring
+import global.GlobalContext
 
 @Document(collection="users")
 case class User(id: ObjectId, name: String,email: String, var password: String)
@@ -16,7 +16,8 @@ trait UserRepository extends CrudRepository[User,ObjectId]{
 }
 
 object User{
-    val ur = Spring.getBeanOfType(classOf[UserRepository])
+//    val ur = Spring.getBeanOfType(classOf[UserRepository])
+    val ur = GlobalContext.getControllerInstance(classOf[UserRepository])
     val md = java.security.MessageDigest.getInstance("SHA-1")
 
     def create(user: User) = {

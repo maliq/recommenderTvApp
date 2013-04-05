@@ -1,19 +1,18 @@
 package models
 
-import play.modules.spring.Spring
-import org.springframework.data.mongodb.core._
-import org.springframework.data.mongodb.core.query._
-import scala.collection.JavaConversions._
-import org.bson.types.ObjectId
 import java.util.Date
-import org.springframework.data.repository.CrudRepository
+
+import scala.collection.JavaConversions.iterableAsScalaIterable
+
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.Field
-import org.springframework.core.convert.converter.Converter
-import com.mongodb.DBObject
+import org.springframework.data.repository.CrudRepository
+
+import global.GlobalContext
 
 @Document(collection="schedules")
-case class Schedule(id: ObjectId, prog: Shortcut, chn: Shortcut, start: Date, duration: Int, minificha: String, ficha: String)
+case class Schedule(id: ObjectId, prog: Shortcut, chn: Shortcut, start: Date, 
+    duration: Int, minificha: String, ficha: String,field:String)
 
 
 case class Shortcut(id: String, cod: String, name: String)
@@ -38,7 +37,8 @@ trait ScheduleRepository extends CrudRepository[Schedule,ObjectId]{
 }
 
 object Schedule {
-    val sr = Spring.getBeanOfType(classOf[ScheduleRepository])
+//    val sr = Spring.getBeanOfType(classOf[ScheduleRepository])
+    val sr = GlobalContext.getControllerInstance(classOf[ScheduleRepository])
     def all(): List[Schedule] = {
         val schedules:List[Schedule]  = sr.findAll().toList
         schedules

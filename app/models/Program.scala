@@ -4,35 +4,35 @@ import scala.collection.JavaConversions.iterableAsScalaIterable
 import scala.collection.JavaConversions.seqAsJavaList
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.CrudRepository
-import play.modules.spring.Spring
-import org.springframework.data.mongodb.core.mapping.Field
-import scala.annotation.target.field
-import org.springframework.core.convert.converter.Converter
-import com.mongodb.DBObject
-import com.mongodb.BasicDBObject
+import global.GlobalContext
+import org.springframework.data.domain._
+import org.springframework.data.repository.PagingAndSortingRepository
 
 @Document(collection = "programs")
-case class Program(id: String, 
-    name: String, 
-    description: String, 
-    episode: String, 
-    web: String, 
-    year: String, 
-    imdbSelected: String, 
-    imdbResults: java.util.List[ImdbResult]){
-  
+case class Program(id: String,
+  name: String,
+  description: String,
+  episode: String,
+  web: String,
+  year: String,
+  imdbSelected: String,
+  imdbResults: java.util.List[ImdbResult],
+  wikipediaSelected: String,
+  wikipediaResults: java.util.List[WikipediaResult]) {
 }
-
 
 case class ImdbResult(url: String,
   imdbId: String,
   title: String,
   postTitle: String)
 
-trait ProgramRepository extends CrudRepository[Program, String]
+case class WikipediaResult(title: String)
+
+trait ProgramRepository extends PagingAndSortingRepository[Program, String]
 
 object Program {
-  val pr = Spring.getBeanOfType(classOf[ProgramRepository])
+  //  val pr = Spring.getBeanOfType(classOf[ProgramRepository])
+  val pr = GlobalContext.getControllerInstance(classOf[ProgramRepository])
   def all(): List[Program] = {
 
     // val mongoOperations: MongoOperations = Spring.getBean("mongoTemplate").asInstanceOf[MongoOperations]
@@ -42,39 +42,44 @@ object Program {
     programs
   }
 
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Page[Program] = {
+
+    val offest = pageSize * page
+    val programs: Page[Program] = pr.findAll(new PageRequest(page,pageSize))
+    programs
+  }
+
   def findOne(id: String): Option[Program] = {
     Some(pr.findOne(id))
   }
 
   def create(label: String) {}
-  
-  def applyCustom(id: String, 
-    name: String, 
-    description: String, 
-    episode: String, 
-    web: String, 
-    year: String, 
-    imdbSelected: String, 
-    imdbResults:List[ImdbResult]):Program={
-	    Program(id, 
-	    name, 
-	    description, 
-	    episode, 
-	    web, 
-	    year, 
-	    imdbSelected, 
-	    seqAsJavaList(imdbResults))
+
+  def applyCustom(id: String,
+    name: String,
+    description: String,
+    episode: String,
+    web: String,
+    year: String,
+    imdbSelected: String,
+    imdbResults: List[ImdbResult],
+    wikipediaSelected: String,
+    wikipediaResults: List[WikipediaResult]): Program = {
+    Program(id,
+      name,
+      description,
+      episode,
+      web,
+      year,
+      imdbSelected,
+      seqAsJavaList(imdbResults),
+      wikipediaSelected,
+      seqAsJavaList(wikipediaResults))
   }
-  
-  def unapplyCustom(program:Program) : Option[(String, 
-    String, 
-    String, 
-    String, 
-    String, 
-    String, 
-    String, 
-    List[ImdbResult])] ={
-    val t = (program.id,program.name,program.description,program.episode,program.web,program.year,program.imdbSelected,program.imdbResults.toList)
+
+  def unapplyCustom(program: Program): Option[(String, String, String, String, String, String, String, List[ImdbResult], String, List[WikipediaResult])] = {
+    val t = (program.id, program.name, program.description, program.episode, program.web, program.year,
+      program.imdbSelected, program.imdbResults.toList, program.wikipediaSelected, program.wikipediaResults.toList)
     Some(t)
   }
 }
