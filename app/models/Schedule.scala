@@ -12,7 +12,7 @@ import global.GlobalContext
 
 @Document(collection="schedules")
 case class Schedule(id: ObjectId, prog: Shortcut, chn: Shortcut, start: Date, 
-    duration: Int, minificha: String, ficha: String,field:String)
+    duration: Int, minificha: String, ficha: String)
 
 
 case class Shortcut(id: String, cod: String, name: String)
