@@ -8,9 +8,11 @@ GET     /login                   	controllers.Application.login
 GET     /authenticate        		controllers.Application.authenticate
 
 #Programs
-GET     /programs                  	controllers.ProgramController.programs
+GET     /programs                  	controllers.ProgramController.programs(page:Int=1)
 GET     /setupProgram/:id           controllers.ProgramController.setupProgram(id:String)
 POST    /editProgram/               controllers.ProgramController.editProgram
+# NOTE: /list/:page MUST COME AFTER /list/[string] due to route priorities
+GET     /programs/:page 		    controllers.ProgramController.programs(page:Int)
 
 #Schedules
 GET     /schedules                  controllers.ScheduleController.schedules

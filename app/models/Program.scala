@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository
 import global.GlobalContext
 import org.springframework.data.domain._
 import org.springframework.data.repository.PagingAndSortingRepository
+import Option.{apply => ?} 
+import org.springframework.data.domain.Sort.Direction
 
 @Document(collection = "programs")
 case class Program(id: String,
@@ -28,7 +30,9 @@ case class ImdbResult(url: String,
 
 case class WikipediaResult(title: String)
 
-trait ProgramRepository extends PagingAndSortingRepository[Program, String]
+trait ProgramRepository extends PagingAndSortingRepository[Program, String] {
+  def findByName(name: String, pageable: Pageable): Page[Program]
+}
 
 object Program {
   //  val pr = Spring.getBeanOfType(classOf[ProgramRepository])
@@ -42,15 +46,21 @@ object Program {
     programs
   }
 
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Page[Program] = {
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): (List[Program], Long) = {
 
     val offest = pageSize * page
-    val programs: Page[Program] = pr.findAll(new PageRequest(page,pageSize))
-    programs
+    val pageable = new PageRequest(page, pageSize,Direction.ASC,"name")
+    val programs: Page[Program] = pr.findAll(pageable)
+    val count = programs.getTotalElements()
+    (programs.getContent().toList, count)
   }
 
   def findOne(id: String): Option[Program] = {
     Some(pr.findOne(id))
+  }
+
+  def count(): Long = {
+    pr.count()
   }
 
   def create(label: String) {}
@@ -78,8 +88,9 @@ object Program {
   }
 
   def unapplyCustom(program: Program): Option[(String, String, String, String, String, String, String, List[ImdbResult], String, List[WikipediaResult])] = {
+    val wikiList:List[WikipediaResult] = ?(program.wikipediaResults).getOrElse(new java.util.ArrayList).toList
     val t = (program.id, program.name, program.description, program.episode, program.web, program.year,
-      program.imdbSelected, program.imdbResults.toList, program.wikipediaSelected, program.wikipediaResults.toList)
+      program.imdbSelected, ?(program.imdbResults).getOrElse(new java.util.ArrayList).toList, program.wikipediaSelected, wikiList)
     Some(t)
   }
 }

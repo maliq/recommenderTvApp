@@ -1,11 +1,11 @@
-@(programs: List[Program])
+@(programs: List[Program], count:Int, page:Int, pageLength:Int)
 
 @import helper._
 @import helper.twitterBootstrap._
 
 @main("Lista de Programas") {
 
-    <h1>@programs.size Programas</h1>
+    <h1>@count Programas</h1>
     <table class="table table-striped">
     <thead>
         <tr>
@@ -25,5 +25,7 @@
             </tr>
             }
     </tbody>
-    </table>
+    </table>  
+    @paginate(page, pageLength, count, routes.ProgramController.programs(_)) 
 }
+

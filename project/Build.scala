@@ -15,7 +15,7 @@ object ApplicationBuild extends Build {
         "org.springframework" % "spring-beans" % "3.1.0.RELEASE",
         "org.springframework" % "spring-aspects" % "3.1.0.RELEASE",
         "org.aspectj" % "aspectjrt" % "1.7.1",
-        "org.springframework.data" % "spring-data-mongodb" % "1.1.1.RELEASE",
+        "org.springframework.data" % "spring-data-mongodb" % "1.2.0.RELEASE",
         "cglib" % "cglib" % "2.2"
     )
 
@@ -23,8 +23,8 @@ object ApplicationBuild extends Build {
       // Add your own project settings here
       resolvers ++= Seq("Spring Maven MILESTONE Repository" at "http://maven.springframework.org/milestone",
                     "TAMU Release Repository" at "https://maven.library.tamu.edu/content/repositories/releases/",
-                    "Spring Snapshot" at "http://repo.springsource.org/snapshot"),
-      offline := true
+                    "Spring Snapshot" at "http://repo.springsource.org/snapshot")
+      ,offline := true
     )
 
 }

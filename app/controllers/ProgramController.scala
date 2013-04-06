@@ -37,13 +37,19 @@ object ProgramController extends Controller {
     )(Program.applyCustom)(Program.unapplyCustom))
 
   def index = Action {
-    Redirect(routes.ProgramController.programs)
-  }
-
-  def programs = Action {
-    Ok(views.html.programs(Program.all()))
+    Redirect(routes.ProgramController.programs(1))
   }
   
+  def programs(page:Int) = Action {
+    val pageLength = 10
+    val (programs,count) = Program.list(page-1, pageLength)//Model.getNotifiactionsByUser(user, (page-1)*pageLength, pageLength)
+    Ok(views.html.programs(programs, count.toInt, page, pageLength))
+  }
+
+//  def programs = Action {
+//    Ok(views.html.programs(Program.all()))
+//  }
+//  
   
 
   def editProgram() = TODO
