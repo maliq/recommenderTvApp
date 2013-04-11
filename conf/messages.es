@@ -1,6 +1,7 @@
 program.programs = Programas
 program.program = Programa
 program.episode = Episodio
+program.programList = Lista de Programas
 
 schedule.schedules = Programaciones
 schedule.schedule = Programación
@@ -15,3 +16,6 @@ user.register = Registro
 
 pagination.next = Próxima
 pagination.previous = Previa
+
+baseUrl.imdb = http://www.imdb.com/title/tt
+baseUrl.wikipedia = http://en.wikipedia.org/wiki/

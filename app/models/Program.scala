@@ -88,9 +88,9 @@ object Program {
   }
 
   def unapplyCustom(program: Program): Option[(String, String, String, String, String, String, String, List[ImdbResult], String, List[WikipediaResult])] = {
-    val wikiList:List[WikipediaResult] = ?(program.wikipediaResults).getOrElse(new java.util.ArrayList).toList
     val t = (program.id, program.name, program.description, program.episode, program.web, program.year,
-      program.imdbSelected, ?(program.imdbResults).getOrElse(new java.util.ArrayList).toList, program.wikipediaSelected, wikiList)
+      program.imdbSelected, ?(program.imdbResults).getOrElse(new java.util.ArrayList).toList, 
+    		  program.wikipediaSelected, ?(program.wikipediaResults).getOrElse(new java.util.ArrayList).toList)
     Some(t)
   }
 }

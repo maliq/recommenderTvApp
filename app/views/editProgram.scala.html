@@ -1,4 +1,4 @@
-@(programForm: Form[Program],imdbOptions:Seq[(String,String)])
+@(programForm: Form[Program],imdbOptions:Seq[(String,String)],wikipediaOptions:Seq[(String,String)])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -14,17 +14,48 @@
         @inputText(programForm("episode"),'placeholder -> "Episodio", '_label ->"")
         @inputText(programForm("year"),'placeholder -> "Año", '_label ->"")
         @inputText(programForm("web"),'placeholder -> "Web", '_label ->"")
-        @inputText(programForm("imdbSelected"),'placeholder -> "Imdb Id", '_label ->"")
         
         @select(
                 programForm("imdbSelected"), 
                 imdbOptions, 
-                '_label -> "Imdb", '_default -> "-- Choose a company --",
+                '_label -> "Imdb:", '_default -> "-- Choose imdb movie --",
                 '_showConstraints -> false
             )
+        <a id="aimdb" target="_blank" href='@Messages("baseUrl.imdb")@programForm.data("imdbSelected")'><i class="icon-eye-open"></i>Imdb</a>
+        @select(
+                programForm("wikipediaSelected"), 
+                wikipediaOptions, 
+                '_label -> "Wikipedia:", '_default -> "-- Choose wikipedia article --",
+                '_showConstraints -> false
+            )
+       	<a id="awikipedia" target="_blank" href='("baseUrl.wikipedia")@programForm.data("wikipediaSelected")'><i class="icon-eye-open"></i>Wikipedia</a>
         
         <br/>
         <button class="btn btn-large btn-primary" type="submit">Guardar</button>
+        
+        
     </form>
-
+	<script>
+	    $(function(){
+	      // on change event to select
+	      $('#wikipediaSelected').bind('change', function () {
+	          var url = $(this).val(); // get selected value
+	          url='@Messages("baseUrl.wikipedia")'+url;
+	          var a= $("#awikipedia")
+	          if (url) { // require a URL
+	        	  a.attr("href",url)
+	          }
+	          return false;
+	      });
+	      $('#imdbSelected').bind('change', function () {
+	          var url = $(this).val(); // get selected value
+	          url='@Messages("baseUrl.imdb")'+url;
+	          var a= $("#aimdb")
+	          if (url) { // require a URL
+	        	  a.attr("href",url)
+	          }
+	          return false;
+	      });
+	    });
+	</script>
 }

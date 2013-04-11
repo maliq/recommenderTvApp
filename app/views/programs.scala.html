@@ -3,16 +3,16 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Lista de Programas") {
+@main(title=Messages("program.programList")) {
 
 <h1></h1>
-    <h1>@count @Messages("program.program")</h1>
+    <h1>@count @Messages("program.programs")</h1>
     <table class="table table-striped">
     <thead>
         <tr>
-            <td>Programa</td>
-            <td>Episodio</td>
-            <td>Descripción</td>
+            <td>@Messages("program.program")</td>
+            <td>@Messages("program.episode")</td>
+            <td>@Messages("common.description")</td>
             <td></td>
         </tr>
     </thead>
@@ -22,7 +22,20 @@
                 <td><a href="@routes.ProgramController.setupProgram(program.id)">@program.name</a></td>
                 <td>@program.episode</td>
                 <td>@program.description</td>
-                <td></td>
+                <td>
+                	@(program.imdbSelected) match{
+                		case imdb:String => {
+                			<a id="aimdb" target="_blank" href='@Messages("baseUrl.imdb")@imdb'><i class="icon-eye-open"></i>Imdb</a>
+                			}
+                		case _ => {}
+                	}
+                	@(program.wikipediaSelected) match{
+                		case wiki:String => {
+                			<a id="awikipedia" target="_blank" href='@Messages("baseUrl.wikipedia")@wiki'><i class="icon-eye-open"></i>Wikipedia</a>
+                			}
+                		case _ => {}
+                	}
+                </td>
             </tr>
             }
     </tbody>

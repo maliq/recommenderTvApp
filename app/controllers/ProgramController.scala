@@ -14,6 +14,7 @@ import play.api.data.Forms.nonEmptyText
 import play.api.data.Forms.text
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import Option.{apply => ?}
 
 object ProgramController extends Controller {
 
@@ -58,10 +59,14 @@ object ProgramController extends Controller {
 //     Ok (views.html.editProgram(programForm.fill(Program.findOne(id))))
     Program.findOne(id).map { program =>
 //      val options:Map[String,String] = for(imdbResult<-program.imdbResults.toList) yield (imdbResult.imdbId, imdbResult.title+imdbResult.postTitle)
-      val options:Seq[(String,String)] = program.imdbResults.toList.map{imdbResult =>
+      
+      val imdbOptions:Seq[(String,String)] = ?(program.imdbResults).getOrElse(new java.util.ArrayList).toList.map{imdbResult =>
         (imdbResult.imdbId, imdbResult.title+imdbResult.postTitle)
       }
-      Ok(views.html.editProgram(programForm.fill(program),options))
+      val wikipediaOptions:Seq[(String,String)] = ?(program.wikipediaResults).getOrElse(new java.util.ArrayList).toList.map{result =>
+        (result.title, result.title)
+      }
+      Ok(views.html.editProgram(programForm.fill(program),imdbOptions,wikipediaOptions))
     }.getOrElse(NotFound)
   }
 
